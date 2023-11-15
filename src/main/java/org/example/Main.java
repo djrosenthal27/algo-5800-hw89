@@ -3,6 +3,7 @@ package org.example;
 
 import HashTable.HashTable;
 import RedBlackTree.RedBlackTree;
+import SkipLists.Skiplist;
 
 import java.io.File;
 
@@ -17,10 +18,24 @@ public class Main {
         */
 
         //int[] ints = {4, 6, 27, 8, 32, 5, 9, 13, 77, 8};
-        RedBlackTree tree = new RedBlackTree("C:\\Users\\djros\\Documents\\OOD\\algo-5800-hw89\\src\\main\\java\\RedBlackTree\\ints.txt");
+       /* RedBlackTree tree = new RedBlackTree("C:\\Users\\djros\\Documents\\OOD\\algo-5800-hw89\\src\\main\\java\\RedBlackTree\\ints.txt");
         tree.sort(tree.root);
         System.out.println();
-        tree.print(tree.root);
+        tree.print(tree.root);*/
+
+        Skiplist skiplist = new Skiplist();
+        skiplist.insert(10);
+        skiplist.insert(20);
+        skiplist.insert(40);
+        skiplist.insert(80);
+        skiplist.insert(30);
+        skiplist.insert(20);
+        skiplist.insert(60);
+        skiplist.print();
+        skiplist.delete(20);
+        skiplist.delete(60);
+        skiplist.print();
+
 
     }
 }

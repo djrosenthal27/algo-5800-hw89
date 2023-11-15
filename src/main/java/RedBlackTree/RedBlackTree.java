@@ -103,7 +103,7 @@ public class RedBlackTree {
         }
     }
 
-    void delete(RedBlackTree t, RedBlackNode z) {
+    public void delete(RedBlackTree t, RedBlackNode z) {
         if (z.left == this.nil) {
             transplant(t, z, z.right);
         } else if (z.right == this.nil) {
