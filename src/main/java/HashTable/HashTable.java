@@ -1,11 +1,9 @@
-package org.example;
+package HashTable;
 
 import LinkedList.LinkedList;
-import LinkedList.Node;
+import LinkedList.LinkedListNode;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -14,9 +12,9 @@ import java.util.Scanner;
 public class HashTable {
     LinkedList[] vals;
 
-    private static final int MAXHASH = 1000;
+    private static final int MAXHASH = 30;
 
-    HashTable(String text) {
+    public HashTable(String text) {
         vals = new LinkedList[MAXHASH];
         for (int i = 0; i < MAXHASH; i++) {
             vals[i] = new LinkedList<String, Integer>();
@@ -73,33 +71,33 @@ public class HashTable {
         //return (int) (MAXHASH * ((x * Math.PI) % 1));
     }
 
-    Node<String, Integer> find(String key) {
+    LinkedListNode<String, Integer> find(String key) {
         return vals[hashFunction(key)].search(vals[hashFunction(key)], key);
     }
     void insert(String key, int val) {
         //Node<String, Integer> x = find(key);
        // if (x == null) {
-            vals[hashFunction(key)].insert(new Node<>(key, val), vals[hashFunction(key)].nil);
+            vals[hashFunction(key)].insert(new LinkedListNode<>(key, val), vals[hashFunction(key)].nil);
        // }
     }
 
     void delete(String key) {
-        Node<String, Integer> x = find(key);
+        LinkedListNode<String, Integer> x = find(key);
         if (x != null) {
             vals[hashFunction(key)].delete(x);
         }
     }
 
     void increase(String key) {
-        Node<String, Integer> x = find(key);
+        LinkedListNode<String, Integer> x = find(key);
         if (x != null) {
             x.val++;
         }
     }
 
-    void listAllKeys() {
+    public void listAllKeys() {
         for (LinkedList<String, Integer> list : vals) {
-            Node<String, Integer> cur = list.nil.next;
+            LinkedListNode<String, Integer> cur = list.nil.next;
             while (cur != list.nil) {
                 System.out.println(cur.key + ": " + cur.val);
                 cur = cur.next;
@@ -107,7 +105,7 @@ public class HashTable {
         }
     }
 
-    void listSizes() {
+    public void listSizes() {
         for (LinkedList<String, Integer> list : vals) {
             System.out.println(list.size(list));
         }
