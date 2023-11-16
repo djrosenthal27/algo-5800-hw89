@@ -1,7 +1,5 @@
 package SkipLists;
 
-import LinkedList.LinkedListNode;
-
 import java.util.ArrayList;
 
 public class SkiplistNode {

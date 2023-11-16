@@ -1,8 +1,5 @@
 package HashTable;
 
-import LinkedList.LinkedList;
-import LinkedList.LinkedListNode;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -12,7 +9,7 @@ import java.util.Scanner;
 public class HashTable {
     LinkedList[] vals;
 
-    private static final int MAXHASH = 30;
+    private static final int MAXHASH = 1000;
 
     public HashTable(String text) {
         vals = new LinkedList[MAXHASH];
@@ -71,7 +68,7 @@ public class HashTable {
         //return (int) (MAXHASH * ((x * Math.PI) % 1));
     }
 
-    LinkedListNode<String, Integer> find(String key) {
+    public LinkedListNode<String, Integer> find(String key) {
         return vals[hashFunction(key)].search(vals[hashFunction(key)], key);
     }
     void insert(String key, int val) {

@@ -1,4 +1,4 @@
-package LinkedList;
+package HashTable;
 
 public class LinkedListNode<K, V> {
     public LinkedListNode prev;
