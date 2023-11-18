@@ -1,15 +1,18 @@
 package HashTable;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class HashTable {
     LinkedList[] vals;
 
-    private static final int MAXHASH = 1000;
+    private static final int MAXHASH = 30;
 
     public HashTable(String text) {
         vals = new LinkedList[MAXHASH];
@@ -32,7 +35,7 @@ public class HashTable {
                     }
                 }
             }
-            System.out.println(wordCount);
+            //System.out.println(wordCount);
         } catch (IOException e) {
             System.out.println("Invalid file name");
             File textfile = new File(text);
@@ -68,6 +71,17 @@ public class HashTable {
         //return (int) (MAXHASH * ((x * Math.PI) % 1));
     }
 
+    int hashFunction2(String key) {
+        byte[] bytes =  key.getBytes(StandardCharsets.UTF_8);
+        int x = 0;
+        for (byte b : bytes) {
+            x+=(Math.max((b-96)*(b-96)*(b-96), 0));
+        }
+        return x;
+        // return 1;
+        //return (int) (MAXHASH * ((x * Math.PI) % 1));
+    }
+
     public LinkedListNode<String, Integer> find(String key) {
         return vals[hashFunction(key)].search(vals[hashFunction(key)], key);
     }
@@ -93,18 +107,43 @@ public class HashTable {
     }
 
     public void listAllKeys() {
-        for (LinkedList<String, Integer> list : vals) {
-            LinkedListNode<String, Integer> cur = list.nil.next;
-            while (cur != list.nil) {
-                System.out.println(cur.key + ": " + cur.val);
-                cur = cur.next;
+        try {
+            File output = new File("C:\\Users\\djros\\Documents\\OOD\\algo-5800-hw89\\src\\main\\java\\HashTable\\wordcountOutput.txt");
+            FileWriter fw = new FileWriter(output);
+            for (LinkedList<String, Integer> list : vals) {
+                LinkedListNode<String, Integer> cur = list.nil.next;
+                while (cur != list.nil) {
+                    fw.write(cur.key + ": " + cur.val + "\n");
+                    //System.out.println(cur.key + ": " + cur.val);
+                    //System.out.println(hashFunction2(cur.key));
+                    cur = cur.next;
+                }
             }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Output file error");
         }
     }
 
     public void listSizes() {
+        System.out.println("List sizes:");
         for (LinkedList<String, Integer> list : vals) {
             System.out.println(list.size(list));
+        }
+    }
+
+    public void printLongestLists() {
+        ArrayList<Integer> largestLists = new ArrayList<>();
+        for (LinkedList<String, Integer> list : vals) {
+            largestLists.add(list.size(list));
+        }
+        Collections.sort(largestLists);
+        for (int i = 0; i < (MAXHASH - MAXHASH/10); i++) {
+            largestLists.remove(0);
+        }
+        System.out.println("Largest 10% of lists: ");
+        for (int size : largestLists) {
+            System.out.println(size);
         }
     }
 

@@ -13,7 +13,7 @@ public class Skiplist {
     }
 
     public void insert(int key) {
-        if (lookup(key) == null) {
+       // if (lookup(key) == null) {
             int i = this.header.nextNodes.size() - 1;
             SkiplistNode cur = this.header;
             SkiplistNode[] nodes = new SkiplistNode[this.header.nextNodes.size()];
@@ -44,7 +44,7 @@ public class Skiplist {
                 this.header.nextNodes.add(newNode);
                 newNode.nextNodes.add(this.sentinel);
             }
-        }
+      //  }
     }
 
     public SkiplistNode lookup(int key) {
@@ -52,18 +52,22 @@ public class Skiplist {
         int level = this.header.nextNodes.size() - 1;
         while (level >= 0) {
             if (cur.nextNodes.get(level).key == key) {
+                System.out.println(cur.nextNodes.get(level).key + " == " + key + "-found");
                 return cur.nextNodes.get(level);
             } else if (cur.nextNodes.get(level).key < key) {
+                System.out.printf(cur.nextNodes.get(level).key + " < " + key + "-right, ");
                 cur = cur.nextNodes.get(level);
             } else {
+                System.out.printf(cur.nextNodes.get(level).key + " > " + key + "-down, ");
                 level--;
             }
         }
+        System.out.println("Not found");
         return null;
     }
 
     public void delete(int key) {
-        if (lookup(key) != null) {
+        //if (lookup(key) != null) {
             int i = this.header.nextNodes.size() - 1;
             SkiplistNode cur = this.header;
             SkiplistNode[] nodes = new SkiplistNode[this.header.nextNodes.size()];
@@ -83,7 +87,7 @@ public class Skiplist {
             for (int x = 0; x < toDelete.nextNodes.size(); x++) {
                 nodes[x].nextNodes.set(x, toDelete.nextNodes.get(x));
             }
-        }
+     //   }
     }
 
     public void print() {

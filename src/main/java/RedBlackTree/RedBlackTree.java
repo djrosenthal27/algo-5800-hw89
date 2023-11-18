@@ -9,6 +9,12 @@ public class RedBlackTree {
     RedBlackNode nil;
     int blackHeight;
 
+    public RedBlackTree() {
+        this.nil = new RedBlackNode();
+        this.root = nil;
+        this.blackHeight = 0;
+    }
+
     public RedBlackTree(String text) {
         this.nil = new RedBlackNode();
         this.root = nil;
@@ -25,33 +31,40 @@ public class RedBlackTree {
 
     }
 
-    RedBlackNode search(int k) {
+    public RedBlackNode search(int k) {
         RedBlackNode x = this.root;
         while (x != this.nil && x.val != k) {
             if (k < x.val) {
                 x = x.left;
+                System.out.printf("left ");
             } else {
                 x = x.right;
+                System.out.printf("right ");
             }
         }
+        System.out.println();
+        System.out.println("BH: " + blackHeight);
         return x;
     }
 
-    RedBlackNode minimum(RedBlackNode x) {
+    public RedBlackNode minimum(RedBlackNode x) {
         while (x != this.nil && x.left != this.nil) {
             x = x.left;
         }
+        System.out.println("BH: " + blackHeight);
         return x;
     }
 
-    RedBlackNode maximum(RedBlackNode x) {
+    public RedBlackNode maximum(RedBlackNode x) {
         while (x != this.nil && x.right != this.nil) {
             x = x.right;
         }
+        System.out.println("BH: " + blackHeight);
         return x;
     }
 
-    RedBlackNode successor(RedBlackNode x) {
+    public RedBlackNode successor(RedBlackNode x) {
+        System.out.println("BH: " + blackHeight);
         if (x.right != this.nil) {
             return minimum(x);
         } else {
@@ -64,7 +77,8 @@ public class RedBlackTree {
         }
     }
 
-    RedBlackNode predecessor(RedBlackNode x) {
+    public RedBlackNode predecessor(RedBlackNode x) {
+        System.out.println("BH: " + blackHeight);
         if (x.left != this.nil) {
             return maximum(x);
         } else {
@@ -78,10 +92,16 @@ public class RedBlackTree {
     }
 
     public void sort(RedBlackNode x) {
+        sortRecursive(x);
+        System.out.println();
+        System.out.println("BH: " + blackHeight);
+    }
+
+    private void sortRecursive(RedBlackNode x) {
         if (x != this.nil) {
-            this.sort(x.left);
+            this.sortRecursive(x.left);
             System.out.printf(x.val + " ");
-            this.sort(x.right);
+            this.sortRecursive(x.right);
         }
     }
 
@@ -119,6 +139,7 @@ public class RedBlackTree {
             y.left = z.left;
             y.left.parent = y;
         }
+        System.out.println("BH: " + blackHeight);
     }
 
     private void transplant(RedBlackTree t, RedBlackNode u, RedBlackNode v) {
@@ -170,7 +191,7 @@ public class RedBlackTree {
         x.parent = y;
     }
 
-    void insert(RedBlackTree t, RedBlackNode z) {
+    public void insert(RedBlackTree t, RedBlackNode z) {
         RedBlackNode x = t.root;
         RedBlackNode y = t.nil;
         while (x != t.nil) {
@@ -243,6 +264,6 @@ public class RedBlackTree {
             n = n.left;
         }
         this.blackHeight = bh;
-        System.out.println(blackHeight);
+        System.out.println("BH: " + blackHeight);
     }
 }
